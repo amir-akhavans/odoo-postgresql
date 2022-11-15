@@ -17,10 +17,6 @@ spec:
       containers:
         - name: odoo
           image: odoo
-          resources:
-            requests:
-              cpu: 100m
-              memory: 100Mi
           ports:
             - containerPort: 8069
               name: odoo
