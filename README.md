@@ -8,7 +8,7 @@ I used minikube environment to run this project. As is mentioned in docker hub, 
 
 To install the odoo and the Postgresql database, apply the yaml files and services included in this repo. The command used to apply the yaml files should be entered in kubernetes environment as an example below:
 
-`kubectl apply -f Postgreql.yaml`
+`kubectl apply -f odoo.yaml`
 
 ### Extra Tasks
 
