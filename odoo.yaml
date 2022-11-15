@@ -31,6 +31,8 @@ spec:
               value: "postgres"
             - name: POSTGRES_USER
               value: "postgres"
+            - name: HOST
+              value: "postgresql"
           volumeMounts:
             - name: volume
               mountPath: /var/lib/odoo
