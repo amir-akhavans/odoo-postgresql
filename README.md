@@ -6,9 +6,13 @@ I used minikube environment to run this project. As is mentioned in docker hub, 
 
 ### Installation and Usage Instructions
 
-To install the odoo and the Postgresql database, apply the yaml files and services included in this repo. The command used to apply the yaml files should be entered in kubernetes environment as an example below:
+To run the odoo and the postgresql database, apply all the yaml files and services included in this repo. The command used to apply the yaml files should be entered in kubernetes environment as an example below:
 
 `kubectl apply -f odoo.yaml`
+
+After applying all the yaml files, you will have access to odoo container entering `127.0.0.1:8069`, if the http connection could not be established, you need to forward the specified port to another port running the command below:
+
+`kubectl port-forward svc/odooservice 8080:8069`
 
 ### Extra Tasks
 
