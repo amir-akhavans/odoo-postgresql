@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup-maker
+              image: jmrobles/postgres-backup:latest
+              envFrom:
+                - configMapRef:
+                    name: config-env
+              args:
+                - /bin/bash
+                - /backup.sh
+              env:
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: POSTGRES_PASSWORD
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: AWS_ACCESS_KEY_ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: AWS_SECRET_ACCESS_KEY
+                - name: AWS_DEFAULT_REGION
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: AWS_DEFAULT_REGION
+                - name: DB_BACKUP_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: DB_BACKUP_PASSWORD
+                - name: S3_BACKUP_PATH
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: S3_BACKUP_PATH
+          restartPolicy: OnFailure
