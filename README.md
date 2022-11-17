@@ -1,4 +1,4 @@
-### Task 1: A simple containerized project running in PostgreSQL and Odoo
+### Task 1: A simple containerized project running PostgreSQL and Odoo
 
 #### This project is implemented in single node, minikube cluster
 
