@@ -14,7 +14,7 @@ After applying all the yaml files, you will have access to odoo container enteri
 
 `kubectl port-forward svc/odooservice 8080:8069`
 
-## Task 2: The database is backed up nightly to Amazon S3 (or another S3 compatible object storage)
+### Task 2: The database is backed up nightly to Amazon S3 (or another S3 compatible object storage)
 
 The backup task is implemented using CronJob. The CronJob runs at the specified time, running some specific tasks. The time it runs can be scheduled in schedule field as is explained below.
 `* * * * *`, the stars specify the timing accordingly:
