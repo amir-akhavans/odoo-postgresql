@@ -1,10 +1,8 @@
 name: Kubernetes Deploy
-on:
-  push:
-    branches:
-      - main
+on: push
 jobs:
   deploy:
+    name: deploy to cluster
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,13 +10,12 @@ jobs:
         uses: steebchen/kubectl@v2.0.0
         with: # defaults to latest kubectl binary version
           config: ${{ secrets.KUBE_CONFIG_DATA }}
-          command: set image deployment/my-app container=${{ github.repository }}:${{ github.sha }}
-
+          command: set image --record deployment/my-app container=${{ github.repository }}:${{ github.sha }}
       - name: verify deployment
         uses: steebchen/kubectl@v2.0.0
         with:
           config: ${{ secrets.KUBE_CONFIG_DATA }}
-          version: v1.25.2 # specify kubectl binary version explicitly
+          version: v1.21.0 # specify kubectl binary version explicitly
           command: rollout status deployment/my-app
 # /////////////////////////////////////////////
 # name: Kubernetes Deploy
