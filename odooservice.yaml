@@ -7,6 +7,6 @@ spec:
     app: odoo
   type: LoadBalancer
   ports:
-    - port: 8069
-      targetPort: 8069
+    - port: 8080
+      targetPort: 8080
       nodePort: 31000
