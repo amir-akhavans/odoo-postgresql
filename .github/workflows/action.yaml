@@ -1,8 +1,9 @@
-name: Deploy
+name: Deploy on the Cluster
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
