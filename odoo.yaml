@@ -18,7 +18,7 @@ spec:
         - name: odoo
           image: odoo
           ports:
-            - containerPort: 8080
+            - containerPort: 8069
               name: odoo
           env:
             - name: POSTGRES_DB
