@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
+      - name: Get code
         uses: actions/checkout@v3
 
       - name: Deploy to cluster
