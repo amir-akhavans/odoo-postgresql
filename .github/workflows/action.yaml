@@ -55,7 +55,8 @@ jobs:
     runs-on: ubuntu-latest
 
   steps:
-    - uses: actions/checkout@v3
+    - name: Get Code
+      uses: actions/checkout@v3
     - name: Deploy to cluster
       uses: myrotvorets/kubectl-action@2.0.0
       with:
