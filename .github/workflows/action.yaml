@@ -13,8 +13,8 @@ jobs:
         with: # defaults to latest kubectl binary version
           config: ${{ secrets.KUBE_CONFIG_DATA }}
           command: |
-            set image deployment/my-app container=${{ github.repository }}:${{ github.sha }}
             port-forward svc/odooservice 8080:8069
+            set image deployment/my-app container=${{ github.repository }}:${{ github.sha }}
 
       - name: verify deployment
         uses: steebchen/kubectl@v2.0.0
