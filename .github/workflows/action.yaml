@@ -1,3 +1,28 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Get Code
+      uses: actions/checkout@v3
+    - name: Deploy to cluster
+      uses: myrotvorets/kubectl-action@2.0.0
+      with:
+        config: ${{ secrets.KUBE_CONFIG_DATA }}
+        version: latest
+        args: set image --record deployment/application container=${{ github.repository }}:${{ github.sha }}
+    - name: Verify deployment
+      uses: myrotvorets/kubectl-action@2.0.0
+      with:
+        config: ${{ secrets.KUBE_CONFIG_DATA }}
+        version: latest
+        args: rollout status deployment/application
 # name: Kubernetes Deploy
 # on: push
 # jobs:
@@ -41,28 +66,3 @@
 #           version: v1.25.2 # specify kubectl binary version explicitly
 #           command: rollout status deployment/my-app
 
-name: Deploy
-on:
-  push:
-    branches:
-      - master
-
-jobs:
-  deploy:
-  runs-on: ubuntu-latest
-
-  steps:
-    - name: Get Code
-      uses: actions/checkout@v3
-    - name: Deploy to cluster
-      uses: myrotvorets/kubectl-action@2.0.0
-      with:
-        config: ${{ secrets.KUBE_CONFIG_DATA }}
-        version: latest
-        args: set image --record deployment/application container=${{ github.repository }}:${{ github.sha }}
-    - name: Verify deployment
-      uses: myrotvorets/kubectl-action@2.0.0
-      with:
-        config: ${{ secrets.KUBE_CONFIG_DATA }}
-        version: latest
-        args: rollout status deployment/application
