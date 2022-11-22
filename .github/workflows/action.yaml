@@ -9,34 +9,53 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v3
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
+      # now you can run kubectl to see the pods in the cluster
+      - name: Try the cluster!
+        run: kubectl get pods -A
 
-      - uses: yokawasa/action-setup-kube-tools@v0.9.2
-        with:
-          kubectl: "1.17.1"
+      - name: Deploy to minikube
+        run: |
+          kubectl apply -f deploy/postgresql.yaml
+          kubectl apply -f deploy/dbservice.yaml
+          kubectl apply -f deploy/odoo.yaml
+          kubectl apply -f deploy/odooservice.yaml
 
-      - run: |
+      - name: Test Deployment
+        run: |
           kubectl version --client
-          kubectl get all --all-namespaces
+          kubectl get all -A
 
-      # - name: Setup Minikube
-      #   uses: manusa/actions-setup-minikube@v2.7.1
-      #   with:
-      #     minikube version: "v1.26.1"
-      #     kubernetes version: "v1.25.0"
-      #     github token: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Interact with the cluster
-      #   run: |
-      #     kubectl get node
-      #     kubectl get all --all-namespaces
+# //////////////////////////////
+#       - uses: yokawasa/action-setup-kube-tools@v0.9.2
+#         with:
+#           kubectl: "1.17.1"
 
-      # - uses: engineerd/setup-kind@v0.5.0
-      #   with:
-      #     version: "v0.11.1"
+#       - run: |
+#           kubectl port-forward svc/mongo-external 8080:8081
+#           kubectl version --client
+#           kubectl get all --all-namespaces
+# //////////////////////////////////////
+# - name: Setup Minikube
+#   uses: manusa/actions-setup-minikube@v2.7.1
+#   with:
+#     minikube version: "v1.26.1"
+#     kubernetes version: "v1.25.0"
+#     github token: ${{ secrets.GITHUB_TOKEN }}
+# - name: Interact with the cluster
+#   run: |
+#     kubectl get node
+#     kubectl get all --all-namespaces
 
-      # - name: Test
-      #   run: |
-      #     kubectl cluster-info
-      #     kubectl get pods --all-namespaces
-      #     kubectl get all
-      #     echo "current-context:" $(kubectl config current-context)
-      #     echo "environment-kubeconfig:" ${KUBECONFIG}
+# - uses: engineerd/setup-kind@v0.5.0
+#   with:
+#     version: "v0.11.1"
+
+# - name: Test
+#   run: |
+#     kubectl cluster-info
+#     kubectl get pods --all-namespaces
+#     kubectl get all
+#     echo "current-context:" $(kubectl config current-context)
+#     echo "environment-kubeconfig:" ${KUBECONFIG}
