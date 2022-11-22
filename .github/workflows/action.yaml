@@ -1,5 +1,9 @@
 name: Kubernetes Cluster
-on: push
+on:
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   deploy:
