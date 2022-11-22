@@ -17,7 +17,9 @@ jobs:
           kubernetes version: "v1.25.0"
           github token: ${{ secrets.GITHUB_TOKEN }}
       - name: Interact with the cluster
-        run: kubectl get all
+        run: |
+          kubectl get node
+          kubectl get all --all-namespaces
 
       # - uses: engineerd/setup-kind@v0.5.0
       #   with:
