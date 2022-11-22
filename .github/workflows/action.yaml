@@ -12,6 +12,6 @@ jobs:
       - name: Test
         run: |
           kubectl cluster-info
-          kubectl get pods -n kube-system
+          kubectl get pods --all-namespaces
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
