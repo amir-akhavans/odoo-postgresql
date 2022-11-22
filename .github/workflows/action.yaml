@@ -17,10 +17,10 @@ jobs:
 
       - name: Deploy to minikube
         run: |
-          kubectl apply -f deploy/postgresql.yaml
-          kubectl apply -f deploy/dbservice.yaml
-          kubectl apply -f deploy/odoo.yaml
-          kubectl apply -f deploy/odooservice.yaml
+          kubectl apply -f postgresql.yaml
+          kubectl apply -f dbservice.yaml
+          kubectl apply -f odoo.yaml
+          kubectl apply -f odooservice.yaml
 
       - name: Test Deployment
         run: |
