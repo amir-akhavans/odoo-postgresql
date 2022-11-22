@@ -1,9 +1,7 @@
 name: Kubernetes Cluster
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
 
 jobs:
   deploy:
@@ -17,5 +15,6 @@ jobs:
         run: |
           kubectl cluster-info
           kubectl get pods --all-namespaces
+          kubectl get all
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
