@@ -12,12 +12,11 @@ jobs:
 
       - uses: yokawasa/action-setup-kube-tools@v0.9.2
         with:
-          kubectl: '1.17.1'
-      
-      - run: |
-        kubectl version --client
-        kubectl get all --all-namespaces
+          kubectl: "1.17.1"
 
+      - run: |
+          kubectl version --client
+          kubectl get all --all-namespaces
 
       # - name: Setup Minikube
       #   uses: manusa/actions-setup-minikube@v2.7.1
@@ -29,7 +28,6 @@ jobs:
       #   run: |
       #     kubectl get node
       #     kubectl get all --all-namespaces
-
 
       # - uses: engineerd/setup-kind@v0.5.0
       #   with:
