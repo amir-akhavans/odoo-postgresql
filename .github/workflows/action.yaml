@@ -10,18 +10,23 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
+      - name: Setup Minikube
+        uses: manusa/actions-setup-minikube@v2.7.1
+        with:
+          minikube version: "v1.26.1"
+          kubernetes version: "v1.25.0"
+          github token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Interact with the cluster
+        run: kubectl get all
+
       # - uses: engineerd/setup-kind@v0.5.0
       #   with:
       #     version: "v0.11.1"
-      - name: Build
-        uses: werf/actions/build@v1.2
-        # with:
-        #   kube-config-base64-data: ${{ secrets.KUBE_CONFIG_BASE64_DATA }}
 
-      - name: Test
-        run: |
-          kubectl cluster-info
-          kubectl get pods --all-namespaces
-          kubectl get all
-          echo "current-context:" $(kubectl config current-context)
-          echo "environment-kubeconfig:" ${KUBECONFIG}
+      # - name: Test
+      #   run: |
+      #     kubectl cluster-info
+      #     kubectl get pods --all-namespaces
+      #     kubectl get all
+      #     echo "current-context:" $(kubectl config current-context)
+      #     echo "environment-kubeconfig:" ${KUBECONFIG}
